@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.redrd.sqlite_rd.database_sqlite.dao.ContactoDao
 import com.redrd.sqlite_rd.database_sqlite.entitie.Contactos
+import com.redrd.sqlite_rd.database_sqlite.migration.MIGRATION_1_2
 
 
 @Database(entities = [Contactos::class], version = 2, exportSchema = false)
@@ -23,7 +24,9 @@ abstract class AppDatabase: RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "contactos_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }
